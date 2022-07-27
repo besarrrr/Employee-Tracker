@@ -1,17 +1,17 @@
-INSERT INTO department (id, names)
+INSERT INTO department (id, name)
 VALUES
-  (1, 'I.T.')
+  (1, 'I.T.'),
   (2, 'Legal'),
   (3, 'Data Science'),
   (4, 'Engineering'),
   (5, 'Marketing');
 
 
-INSERT INTO role (id, title, salary, department_id)
+INSERT INTO role (iselect *d, title, salary, department_id)
 VALUES
   (1, 'Manager IT', 100000, 1),
   (2, 'IT Support',60000, 1),
-  (3, 'Manager Legal' 125000, 2), 
+  (3, 'Manager Legal', 95000, 2), 
   (4, 'Associate Legal', 80000, 2),
   (5, 'Manager DS', 95000, 3),
   (6, 'Data Scientist', 75000, 3),
