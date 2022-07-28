@@ -6,10 +6,10 @@ const db = require('./db/connection');
 db.connect(err => {
     if (err) throw err;
     console.log('Database connected.');
-    employee_tracker();
+    startApp();
 });
 
-var employee_tracker = function () {
+var startApp = function () {
     inquirer.prompt([{
         // Begin Command Line
         type: 'list',
@@ -23,21 +23,21 @@ var employee_tracker = function () {
                 if (err) throw err;
                 console.log("Viewing All Departments: ");
                 console.table(result);
-                employee_tracker();
+                startApp();
             });
         } else if (answers.prompt === 'View All Roles') {
             db.query(`SELECT * FROM role`, (err, result) => {
                 if (err) throw err;
                 console.log("Viewing All Roles: ");
                 console.table(result);
-                employee_tracker();
+                startApp();
             });
         } else if (answers.prompt === 'View All Employees') {
             db.query(`SELECT * FROM employee`, (err, result) => {
                 if (err) throw err;
                 console.log("Viewing All Employees: ");
                 console.table(result);
-                employee_tracker();
+                startApp();
             });
         } else if (answers.prompt === 'Add A Department') {
             inquirer.prompt([{
@@ -57,7 +57,7 @@ var employee_tracker = function () {
                 db.query(`INSERT INTO department (name) VALUES (?)`, [answers.department], (err, result) => {
                     if (err) throw err;
                     console.log(`Added ${answers.department} to the database.`)
-                    employee_tracker();
+                    startApp();
                 });
             })
         } else if (answers.prompt === 'Add A Role') {
@@ -95,7 +95,7 @@ var employee_tracker = function () {
                         }
                     },
                     {
-                        // Department
+                        
                         type: 'list',
                         name: 'department',
                         message: 'Which department does the role belong to?',
@@ -118,7 +118,7 @@ var employee_tracker = function () {
                     db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`, [answers.role, answers.salary, department.id], (err, result) => {
                         if (err) throw err;
                         console.log(`Added ${answers.role} to the database.`)
-                        employee_tracker();
+                        startApp();
                     });
                 })
             });
@@ -157,7 +157,7 @@ var employee_tracker = function () {
                         }
                     },
                     {
-                        // Adding Employee Role
+                        
                         type: 'list',
                         name: 'role',
                         message: 'What is the employees role?',
@@ -195,7 +195,7 @@ var employee_tracker = function () {
                     db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [answers.firstName, answers.lastName, role.id, answers.manager.id], (err, result) => {
                         if (err) throw err;
                         console.log(`Added ${answers.firstName} ${answers.lastName} to the database.`)
-                        employee_tracker();
+                        startApp();
                     });
                 })
             });
@@ -250,7 +250,7 @@ var employee_tracker = function () {
                     db.query(`UPDATE employee SET ? WHERE ?`, [{role_id: role}, {last_name: name}], (err, result) => {
                         if (err) throw err;
                         console.log(`Updated ${answers.employee} role to the database.`)
-                        employee_tracker();
+                        startApp();
                     });
                 })
             });
